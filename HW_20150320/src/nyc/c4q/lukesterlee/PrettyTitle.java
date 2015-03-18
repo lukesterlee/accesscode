@@ -31,7 +31,7 @@ public class PrettyTitle {
         String capitalizedString = "";
         while (input.hasNext()) {
             word = input.next();
-            word = word.substring(0, 1) + word.substring(1);
+            word = word.substring(0, 1).toUpperCase() + word.substring(1);
             capitalizedString += word + " ";
         }
 
@@ -42,7 +42,7 @@ public class PrettyTitle {
 
         printTitle("Hello, this is Luke Lee", '*');
 
-        print(capitalize("Hello, this is Luke Lee."))
+        print(capitalize("\nHello, this is Luke Lee."));
 
     }
 
