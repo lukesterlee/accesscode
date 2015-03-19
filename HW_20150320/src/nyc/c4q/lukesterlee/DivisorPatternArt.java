@@ -1,12 +1,18 @@
 package nyc.c4q.lukesterlee;
 
-public class DivisorPatternArt {
+/*
+ * Access Code 2.1
+ * Created by Luke Lee on 03/17/15
+ */
 
+public class DivisorPatternArt {
 
     public static void print(String text) {
         System.out.print(text);
     }
 
+    // Print "@ " if i divides j or j divides i.
+    // Otherwise, print "  ".
     public static void printDPA(int size) {
         String[][] dpa  = new String[size][size];
 
@@ -16,17 +22,12 @@ public class DivisorPatternArt {
                     print("@ ");
                 else
                     print("  ");
-
             }
             print("\n");
         }
     }
 
     public static void main(String[] args) {
-
-
         printDPA(10);
-
-
     }
 }
