@@ -14,10 +14,8 @@ public class DivisorPatternArt {
     // Print "@ " if i divides j or j divides i.
     // Otherwise, print "  ".
     public static void printDPA(int size) {
-        String[][] dpa  = new String[size][size];
-
-        for (int i=0; i<size; i++) {
-            for (int j=0; j<size; j++) {
+        for (int i=1; i<=size; i++) {
+            for (int j=1; j<=size; j++) {
                 if( i%j == 0 || j%i == 0)
                     print("@ ");
                 else
