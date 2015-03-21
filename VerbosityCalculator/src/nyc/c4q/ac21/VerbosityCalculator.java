@@ -9,6 +9,7 @@ import java.util.Scanner;
  * Access Code 2.1
  * Created by Luke Lee on 03/20/15
  * Calculate the verbosity of a text
+ * Average Verbosity : (The number of words)/(The number of sentences)
  */
 public class VerbosityCalculator {
 
@@ -28,12 +29,13 @@ public class VerbosityCalculator {
                 word = reader.next();
                 wordCount++;
 
-                // if the word contains "." or "!" or "?", then count it as a sentence.
-                if (word.contains(".") || word.contains("!") || word.contains("?"))
-                    sentenceCount++;
                 // don't count periods with Mr. and Mrs.
                 if (word.equalsIgnoreCase("mr.") || word.equalsIgnoreCase("mrs.") || word.equalsIgnoreCase("dr.") || word.equalsIgnoreCase("ms."))
-                    sentenceCount--;
+                    continue;
+                // if the word contains "." or "!" or "?", then count it as a sentence.
+                else if (word.contains(".") || word.contains("!") || word.contains("?"))
+                    sentenceCount++;
+
             }
 
             Scanner reader2 = new Scanner(file);
@@ -61,8 +63,8 @@ public class VerbosityCalculator {
     public static void main(String[] args){
 
         // An abstract representation of a File
-        File dickens = new File("C:\\Users\\Luke\\Desktop\\accesscode\\VerbosityCalculator\\resources\\pg98.txt");
-        File mobydick = new File("C:\\Users\\Luke\\Desktop\\accesscode\\VerbosityCalculator\\resources\\pg2701.txt");
+        File dickens = new File("/Users/Willee/Desktop/accesscode/VerbosityCalculator/resources/pg98.txt");
+        File mobydick = new File("/Users/Willee/Desktop/accesscode/VerbosityCalculator/resources/pg2701.txt");
 
         print("A Tale of Two Cities, by Charles Dickens");
         /*
