@@ -32,7 +32,7 @@ public class VerbosityCalculator {
                 if (word.contains(".") || word.contains("!") || word.contains("?"))
                     sentenceCount++;
                 // don't count periods with Mr. and Mrs.
-                if (word.equalsIgnoreCase("mr.") || word.equalsIgnoreCase("mrs."))
+                if (word.equalsIgnoreCase("mr.") || word.equalsIgnoreCase("mrs.") || word.equalsIgnoreCase("dr.") || word.equalsIgnoreCase("ms."))
                     sentenceCount--;
             }
 
