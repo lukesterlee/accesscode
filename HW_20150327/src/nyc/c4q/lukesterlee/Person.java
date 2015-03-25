@@ -42,4 +42,18 @@ public class Person {
     public void setName(String name) {
         this.name = name;
     }
+
+    // checkSameCity accepts as input two Person instances and checks if they live in the same city.
+    // return value : boolean
+    public static boolean checkSameCity(Person p1, Person p2) {
+        return p1.getCity().equals(p2.getCity());
+    }
+
+    public static Person registerChild(Person parent) {
+        Person child = new Person();
+        child.setCity(parent.getCity());
+        child.setPhoneNumber(parent.getPhoneNumber());
+
+        return child;
+    }
 }
