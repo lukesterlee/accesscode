@@ -15,15 +15,11 @@ public class CaesarCipher {
     }
 
     public static boolean codeBreaker(String cipher1, String cipher2) {
-
-        if (cipher1.length() != cipher2.length())
-            return false;
-
         for (int i = 1; i < 26; i++) {
             if (cipher1.equals(encode(cipher2,i)))
                 return true;
         }
-        return true;
+        return false;
     }
 
     public static String encode(String enc, int offset) {
