@@ -12,14 +12,21 @@ public class Adds {
         ArrayList<Integer> numbers = new ArrayList<Integer>();
 
         int num = 0;
+        int sum = 0;
 
         System.out.println("Give me some numbers to add:");
         while (num != -2) {
             num = input.nextInt();
-            numbers.add(num);
+            if (num != -2)
+                numbers.add(num);
         }
 
-        System.out.println("Thanks!");
+        for (int n : numbers) {
+            sum += n;
+        }
+
+
+        System.out.println("Thanks! Your sum is " + sum);
 
     }
 }
