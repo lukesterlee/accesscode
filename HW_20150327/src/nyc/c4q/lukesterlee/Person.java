@@ -12,10 +12,10 @@ public class Person {
     private String phoneNumber;
     private String city;
 
-    public void Person(){
+    public Person(){
     }
 
-    public void Person(String name){
+    public Person(String name){
         this.name = name;
     }
 
@@ -50,10 +50,14 @@ public class Person {
     }
 
     public static Person registerChild(Person parent) {
-        Person child = new Person();
+        Person child = new Person("abc");
         child.setCity(parent.getCity());
         child.setPhoneNumber(parent.getPhoneNumber());
 
         return child;
     }
+
+
 }
+
+

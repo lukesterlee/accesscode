@@ -14,6 +14,29 @@ public class CaesarCipher {
         return encode(enc, 26-offset);
     }
 
+//    public static boolean codeBreaker(String cipher1, String cipher2) {
+//
+//        if (cipher1.length() != cipher2.length())
+//            return false;
+//
+//
+//        int difference = (int) cipher1.charAt(0) - (int) cipher2.charAt(0);
+//        for (int i = 0; i < cipher1.length(); i++) {
+//
+//            if (Character.isLetter(cipher1.charAt(i))) {
+//                if (!Character.isLetter(cipher2.charAt(i)))
+//                    return false;
+//                //int difference = (int) cipher1.charAt(0) - (int) cipher2.charAt(0);
+//                //else if ()
+//            }
+//        }
+//
+//
+//
+//
+//        return true;
+//    }
+
     public static String encode(String enc, int offset) {
         offset = offset % 26 + 26;
         StringBuilder encoded = new StringBuilder();
