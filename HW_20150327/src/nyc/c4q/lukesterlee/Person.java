@@ -1,11 +1,11 @@
 package nyc.c4q.lukesterlee;
 
 /**
+ * Access Code 2.1
  * Created by Luke Lee on 3/25/15.
- */
-/**
  * A Person class
  */
+
 public class Person {
 
     private String name;
@@ -49,15 +49,13 @@ public class Person {
         return p1.getCity().equals(p2.getCity());
     }
 
+    // A Person has recently had a child, whose name is 'Abc'.
+    // Write a function called registerChild which accepts as input a Person instance(Parent)
+    // @return a new Person instance for the child, which has the same phoneNumber and city as the parent.
     public static Person registerChild(Person parent) {
-        Person child = new Person("abc");
+        Person child = new Person("Abc");
         child.setCity(parent.getCity());
         child.setPhoneNumber(parent.getPhoneNumber());
-
         return child;
     }
-
-
 }
-
-
