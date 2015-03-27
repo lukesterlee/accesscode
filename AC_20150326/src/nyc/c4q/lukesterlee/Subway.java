@@ -15,8 +15,9 @@ public class Subway {
         //throw new UnsupportedOperationException("Not implemented yet");
 
         g.setColor(color);
-        g.fillRect(20, y, count, 20);
-        g.drawString(letter,0,y*2);
+        g.fillRect(20, y, count, 10);
+        g.drawString(letter,5,y+10);
+        g.drawString(count+"",count+25,y+10);
 
 
 
@@ -41,7 +42,7 @@ public class Subway {
 
     public static void main(String[] args) {
         // This creates a 500x250 pixel drawing.
-        DrawingPanel panel = new DrawingPanel(500, 250);
+        DrawingPanel panel = new DrawingPanel(500, 260);
         // This gets a Graphics2D object that we can use to draw on the panel.
         Graphics2D g = panel.getGraphics();
 
@@ -49,7 +50,7 @@ public class Subway {
         // Modify this String to indicate the full path to the subway
         // data on your computer. Run your program. If it does not throw an
         // error, you are referencing the file correctly.
-        File f = new File("/Users/Willee/Desktop/accesscode/AC_20150326/src/subway-data.txt");
+        File f = new File("C:\\Users\\Luke\\Desktop\\accesscode\\AC_20150326\\src\\subway-data.txt");
 
 
         // Step 2.
@@ -60,7 +61,7 @@ public class Subway {
         ArrayList<ArrayList<String>> lines = f.getLines();
 
         for (int i = 0; i < lines.size(); i++) {
-            //System.out.println(lines.get(i).get(2));
+            System.out.println(lines.get(i).get(2));
         }
 
         // Step 3.
@@ -69,67 +70,71 @@ public class Subway {
         // Step 3b.
         // Ensure countEntrances is correct by printing out the counts for a
         // few subway lines!
-        int numOfF = countEntrances(lines,"F");
-        System.out.println(numOfF);
-
-        int numOfG = countEntrances(lines,"G");
-        System.out.println(numOfG);
-
-        int numOfM = countEntrances(lines,"M");
-        System.out.println(numOfM);
-
-        int numOfQ = countEntrances(lines,"Q");
-        System.out.println(numOfQ);
-
-        int numOfD = countEntrances(lines,"D");
-        System.out.println(numOfD);
-
-        int numOfR = countEntrances(lines,"R");
-        System.out.println(numOfR);
-
         int numOf1 = countEntrances(lines,"1");
-        System.out.println(numOf1);
-
         int numOf2 = countEntrances(lines,"2");
-        System.out.println(numOf2);
-
         int numOf3 = countEntrances(lines,"3");
-        System.out.println(numOf3);
 
         int numOf4 = countEntrances(lines,"4");
-        System.out.println(numOf4);
-
         int numOf5 = countEntrances(lines,"5");
-        System.out.println(numOf5);
-
         int numOf6 = countEntrances(lines,"6");
-        System.out.println(numOf6);
+
+        int numOf7 = countEntrances(lines,"7");
 
         int numOfA = countEntrances(lines,"A");
-        System.out.println(numOfA);
-
         int numOfC = countEntrances(lines,"C");
-        System.out.println(numOfC);
+        int numOfE = countEntrances(lines,"E");
+
+        int numOfB = countEntrances(lines,"B");
+        int numOfD = countEntrances(lines,"D");
+        int numOfF = countEntrances(lines,"F");
+        int numOfM = countEntrances(lines,"M");
+
+        int numOfG = countEntrances(lines,"G");
 
         int numOfJ = countEntrances(lines,"J");
-        System.out.println(numOfJ);
-
         int numOfZ = countEntrances(lines,"Z");
-        System.out.println(numOfZ);
+
+        int numOfL = countEntrances(lines,"L");
+        int numOfS = countEntrances(lines,"S");
+
+        int numOfN = countEntrances(lines,"N");
+        int numOfQ = countEntrances(lines,"Q");
+        int numOfR = countEntrances(lines,"R");
 
         // Step 4.
         // Implement drawBar().
 
-        drawBar(g,Color.orange,0,numOfF,"F");
-        drawBar(g,Color.green,20,numOfG,"G");
-        drawBar(g,Color.orange,40,numOfM,"M");
-        drawBar(g,Color.orange,60,numOfR,"R");
-        drawBar(g,Color.green,80,numOf1,"1");
-        drawBar(g,Color.green,100,numOf2,"2");
-        drawBar(g,Color.green,120,numOf3,"3");
-        drawBar(g,Color.green,140,numOf4,"4");
-        drawBar(g,Color.green,160,numOf5,"5");
-        drawBar(g,Color.green,180,numOf6,"6");
+        drawBar(g,new Color(255,51,51),0,numOf1,"1");
+        drawBar(g,new Color(255,51,51),12,numOf2,"2");
+        drawBar(g,new Color(255,51,51),24,numOf3,"3");
+
+        drawBar(g,new Color(0,153,51),36,numOf4,"4");
+        drawBar(g,new Color(0,153,51),48,numOf5,"5");
+        drawBar(g,new Color(0,153,51),60,numOf6,"6");
+
+        drawBar(g,new Color(204,0,204),72,numOf7,"7");
+
+        drawBar(g,new Color(0,102,153),84,numOfA,"A");
+        drawBar(g,new Color(0,102,153),96,numOfC,"C");
+        drawBar(g,new Color(0,102,153),108,numOfE,"E");
+
+        drawBar(g,new Color(255,153,51),120,numOfB,"B");
+        drawBar(g,new Color(255,153,51),132,numOfD,"D");
+        drawBar(g,new Color(255,153,51),144,numOfF,"F");
+        drawBar(g,new Color(255,153,51),156,numOfM,"M");
+
+        drawBar(g,new Color(153,204,0),168,numOfG,"G");
+
+        drawBar(g,new Color(153,102,0),180,numOfJ,"J");
+        drawBar(g,new Color(153,102,0),192,numOfZ,"Z");
+
+        drawBar(g,new Color(167,169,172),204,numOfL,"L");
+        drawBar(g,new Color(128,129,131),216,numOfS,"S");
+
+        drawBar(g,new Color(252,204,10),228,numOfN,"N");
+        drawBar(g,new Color(252,204,10),240,numOfQ,"Q");
+        drawBar(g,new Color(252,204,10),252,numOfR,"R");
+
 
     }
 
