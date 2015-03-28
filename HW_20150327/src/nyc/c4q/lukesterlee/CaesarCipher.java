@@ -22,7 +22,7 @@ public class CaesarCipher {
         }
         return false;
     }
-
+    // credit : Allison and Jae for the original idea.
     // If they are from the same text, the difference of offset will be the same.
     // Issue 1 : how do I keep track of offsetDifference?
     // Issue 2 : difference of difference - looping problem
@@ -40,7 +40,6 @@ public class CaesarCipher {
                 b += 26;
 
             if (Character.isLetter(cipher1.charAt(i))) {
-
                 // honestly I don't think this line is necessary but for understanding purpose, I will keep it.
                 if (!Character.isLetter(cipher2.charAt(i)))
                     return false;
@@ -84,12 +83,12 @@ public class CaesarCipher {
 
         System.out.println("Enter the first string to compare");
         String input1 = sc.nextLine();
-        String cipher1 = encode(input1, 4);
+        String cipher1 = encode(input1, 3);
         System.out.println(cipher1);
 
         System.out.println("\nEnter the second string to compare");
         String input2 = sc.nextLine();
-        String cipher2 = encode(input2, 22);
+        String cipher2 = encode(input2, 20);
         System.out.println(cipher2);
 
         System.out.println("\nThe result provided by codeBreaker is : " + codeBreaker(cipher1,cipher2));

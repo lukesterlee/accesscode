@@ -29,4 +29,12 @@ public class Kennel {
     public int numOfDogs() {
         return this.kennel.size();
     }
+
+    public boolean hasDogs() {
+        return kennel.isEmpty();
+    }
+
+    public void shutdownKennel() {
+        kennel.clear();
+    }
 }
