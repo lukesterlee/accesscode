@@ -32,7 +32,7 @@ public class CaesarCipher {
         for (int i = 0; i < cipher1.length(); i++) {
             int a = cipher1.charAt(i);
             int b = cipher2.charAt(i);
-            System.out.println(a + " " + b + " difference is : " + (a-b));
+            //System.out.println(a + " " + b + " difference is : " + (a-b));
             if (a > b)
                 b += 26;
 
