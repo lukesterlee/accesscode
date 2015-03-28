@@ -23,6 +23,7 @@ public class CaesarCipher {
         return false;
     }
 
+    // If they are from the same text, the difference of offset will be the same.
     public static boolean codeBreaker2(String cipher1, String cipher2) {
         int difference = 0;
         if (cipher1.length() != cipher2.length())
@@ -31,22 +32,19 @@ public class CaesarCipher {
         for (int i = 0; i < cipher1.length()-1; i++) {
             int a = cipher1.charAt(i);
             int b = cipher2.charAt(i);
-
+            //System.out.println(a + " " + b + " difference is : " + (a-b));
             if (a > b)
                 b += 26;
 
             if (Character.isLetter(cipher1.charAt(i))) {
                 if (!Character.isLetter(cipher2.charAt(i)))
                     return false;
-                else if (a > b)
-                    b += 26;
-
-                if (i == 0)
+                else if (i == 0)
                     difference = a-b;
                 else if (difference != a-b)
                     return false;
             }
-    }
+        }
         return true;
     }
 

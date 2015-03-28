@@ -70,6 +70,8 @@ public class Subway {
         // Step 3b.
         // Ensure countEntrances is correct by printing out the counts for a
         // few subway lines!
+        String[] line = new String[]{"1", "2", "3", "4", "5", "6", "7", "A", "C", "E", "B", "D", "F", "M"};
+
         int numOf1 = countEntrances(lines,"1");
         int numOf2 = countEntrances(lines,"2");
         int numOf3 = countEntrances(lines,"3");
