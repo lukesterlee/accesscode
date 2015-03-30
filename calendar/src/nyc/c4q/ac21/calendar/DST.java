@@ -26,7 +26,10 @@ public class DST {
         // Use DateTools.parseDate.
         for (String dst : lines) {
             String[] dates = dst.split(",");
-            //DateTools.parseDate(dates[0])
+            String[] startYear = dates[0].split("-");
+            String[] endYear = dates[1].split("-");
+            startDates.put(Integer.parseInt(startYear[0]), DateTools.parseDate(dates[0]));
+            endDates.put(Integer.parseInt(endYear[0]), DateTools.parseDate(dates[1]));
         }
     }
 
@@ -44,8 +47,14 @@ public class DST {
         // Populate them.
         DST.getDSTDates(dstStartDates, dstEndDates);
 
-        // FIXME: Write this code!
-        return false;  // Change this!
+        int today = date.DAY_OF_YEAR;
+        int start = dstStartDates.get(date.YEAR).DAY_OF_YEAR;
+        int end = dstEndDates.get(date.YEAR).DAY_OF_YEAR;
+
+        if (start <= today && today <= end)
+            return true;
+        else
+            return false;
     }
 
 }

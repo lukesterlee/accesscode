@@ -6,25 +6,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static int change(int x) {
-
-        x = 20;
-
-        return x;
-    }
-
-
     public static void main(String[] args) {
-
-        int x = 0;
-        x = change(x);
-        System.out.println(x);
-
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("date? ");
         String dateString = scanner.nextLine();
         Calendar date = DateTools.parseDate(dateString);
+
         if (date == null)
             return;
         System.out.println();
@@ -48,11 +36,11 @@ public class Main {
 
         // 4. Show whether this date is in DST.
         boolean isDST = DST.isDST(date);
-        // ...
+        System.out.println("is DST:            " + isDST);
 
         // 5. Show the zodiac sign.
         String zodiacSign = Zodiac.getZodiacSign(date);
-        // ...
+        System.out.println("Zodiac sign:       " + zodiacSign);
 
         // 6. Print out the monthly calendar.
         CalendarPrinter.printMonthCalendar(date);
