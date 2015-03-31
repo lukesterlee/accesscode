@@ -63,22 +63,36 @@ public class DateTools {
      *   A map with keys 'Calendar.MONDAY' through 'Calendar.SUNDAY' with corresponding day names as values.
      */
     public static HashMap<Integer, String> getDayOfWeekNames() {
-        HashMap<Integer, String> names = new HashMap<Integer, String>();
+        HashMap<Integer, String> dayOfWeekNames = new HashMap<Integer, String>();
 
-        names.put(Calendar.MONDAY, "Monday");
-        names.put(Calendar.TUESDAY, "Tuesday");
-        names.put(Calendar.WEDNESDAY, "Wednesday");
-        names.put(Calendar.THURSDAY, "Thursday");
-        names.put(Calendar.FRIDAY, "Friday");
-        names.put(Calendar.SATURDAY, "Saturday");
-        names.put(Calendar.SUNDAY, "Sunday");
+        dayOfWeekNames.put(Calendar.MONDAY, "Monday");
+        dayOfWeekNames.put(Calendar.TUESDAY, "Tuesday");
+        dayOfWeekNames.put(Calendar.WEDNESDAY, "Wednesday");
+        dayOfWeekNames.put(Calendar.THURSDAY, "Thursday");
+        dayOfWeekNames.put(Calendar.FRIDAY, "Friday");
+        dayOfWeekNames.put(Calendar.SATURDAY, "Saturday");
+        dayOfWeekNames.put(Calendar.SUNDAY, "Sunday");
 
-        return names;
+        return dayOfWeekNames;
     }
 
     public static HashMap<Integer, String> getMonthNames() {
-        // FIXME: Write this.
-        return null;  // Change this!
+        HashMap<Integer, String> monthNames = new HashMap<Integer, String>();
+
+        monthNames.put(0, "January");
+        monthNames.put(1, "February");
+        monthNames.put(2, "March");
+        monthNames.put(3, "April");
+        monthNames.put(4, "May");
+        monthNames.put(5, "June");
+        monthNames.put(6, "July");
+        monthNames.put(7, "August");
+        monthNames.put(8, "September");
+        monthNames.put(9, "October");
+        monthNames.put(10, "November");
+        monthNames.put(11, "December");
+
+        return monthNames;
     }
 
 }

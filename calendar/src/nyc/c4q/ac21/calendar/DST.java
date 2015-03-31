@@ -48,13 +48,11 @@ public class DST {
         DST.getDSTDates(dstStartDates, dstEndDates);
 
         int today = date.DAY_OF_YEAR;
-        int start = dstStartDates.get(date.YEAR).DAY_OF_YEAR;
-        int end = dstEndDates.get(date.YEAR).DAY_OF_YEAR;
+        int start = dstStartDates.get(date.get(Calendar.YEAR)).get(Calendar.DAY_OF_YEAR);
+        int end = dstEndDates.get(date.get(Calendar.YEAR)).get(Calendar.DAY_OF_YEAR);
 
-        if (start <= today && today <= end)
-            return true;
-        else
-            return false;
+        return (start <= today && today <= end);
+
     }
 
 }

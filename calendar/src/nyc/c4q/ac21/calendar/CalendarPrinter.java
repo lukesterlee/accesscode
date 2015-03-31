@@ -1,6 +1,8 @@
 package nyc.c4q.ac21.calendar;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class CalendarPrinter
 {
@@ -29,6 +31,46 @@ public class CalendarPrinter
         // Use these methods to help you:
         //   DateTools.getMonthNames()
         //   DateTools.getNextDay() to loop through days in the month.
+
+        HashMap<Integer, String> monthNames = DateTools.getMonthNames();
+
+        System.out.println("\n" + monthNames.get(date.get(Calendar.MONTH)) + " " + date.get(Calendar.YEAR));
+
+        Calendar day = (Calendar) date.clone();
+        day.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), 1);
+
+        ArrayList<ArrayList<Integer>> calendar = new ArrayList<ArrayList<Integer>>();
+
+//        for (int i = 0; i <= date.getMaximum(Calendar.WEEK_OF_MONTH); i++) {
+//            for (int j = day.get(Calendar.DAY_OF_WEEK); j <= 7; j++) {
+//                calendar.get(i).add(j, day.get(Calendar.DAY_OF_MONTH));
+//                day = DateTools.getNextDay(day);
+//            }
+//        }
+        int week;
+        // for padding.
+        for (int j = 1; j < day.get(Calendar.DAY_OF_WEEK); j++) {
+            System.out.print("    ");
+        }
+        week = day.get(Calendar.DAY_OF_WEEK);
+        for (int i = day.get(Calendar.DAY_OF_MONTH); i <= date.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
+
+            if (i < 10)
+                System.out.print(" ");
+
+            System.out.print(i);
+
+            if (i == date.get(Calendar.DAY_OF_MONTH))
+                System.out.print("* ");
+            else
+                System.out.print("  ");
+
+            if (week%7 == 0)
+                System.out.println();
+
+            //day = DateTools.getNextDay(day);
+            week++;
+        }
     }
 
 }
