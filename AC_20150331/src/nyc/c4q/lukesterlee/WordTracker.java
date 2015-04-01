@@ -35,14 +35,29 @@ public class WordTracker {
             }
 
 
-            if (addMode)
-                words.put(word, 1);
-            else
-                words.remove(word);
+            if (addMode) {
+                if (words.containsKey(word))
+                    words.put(word, words.get(word)+1);
+                else
+                    words.put(word, 1);
+            } else {
+                if (words.get(word) == 1)
+                    words.remove(word);
+                else
+                    words.put(word, words.get(word)-1);
+            }
+
         }
 
         System.out.println("Thanks! You have given me " + words.size() + " word(s)!");
-
+        if (words.isEmpty())
+            System.out.println("Words is empty.");
+        else {
+            System.out.println("Here they are:");
+            for (String voca : words.keySet()) {
+                System.out.println(voca + ": " + words.get(voca));
+            }
+        }
 
 
 
