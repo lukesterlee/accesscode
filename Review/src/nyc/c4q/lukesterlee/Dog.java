@@ -44,4 +44,9 @@ public class Dog {
     public static void bark() {
         System.out.println("Brrrrr");
     }
+
+    public Dog giveBirth(String name) {
+        Dog baby = new Dog(name);
+        return baby;
+    }
 }

@@ -1,5 +1,7 @@
 package nyc.c4q.lukesterlee;
 
+import java.util.ArrayList;
+
 /**
  * Created by Luke Lee on 4/1/2015.
  */
@@ -12,7 +14,6 @@ public class Person {
     private String instagramUsername;
     private String city;
 
-
     private int age;
     private int phoneNumber;
     private int ssnNumber;
@@ -20,16 +21,20 @@ public class Person {
 
     private boolean getMarried;
 
+    private ArrayList<Person> friendsList;
+
     private static int numberOfPeople = 0;
 
     public Person() {
         age = 0;
+        friendsList = new ArrayList<Person>();
         numberOfPeople++;
     }
 
     public Person(String name) {
         this.name = name;
         age = 0;
+        friendsList = new ArrayList<Person>();
         numberOfPeople++;
 
     }
@@ -62,7 +67,7 @@ public class Person {
     public int getAge() {
         return age;
     }
-
+a
     public void setAge(int age) {
         this.age = age;
     }
@@ -77,6 +82,15 @@ public class Person {
 
     public boolean isGay() {
         return identity.equals("Gay");
+    }
+
+    public void addFriend(Person newFriend) {
+        friendsList.add(newFriend);
+    }
+
+    public Person giveBirth(String name) {
+        Person baby = new Person(name);
+        
     }
 
 
