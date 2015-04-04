@@ -1,6 +1,7 @@
 package nyc.c4q.lukesterlee;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by Luke Lee on 4/1/2015.
@@ -18,6 +19,7 @@ public class Person {
     private int phoneNumber;
     private int ssnNumber;
     private int zipCode;
+    private String school;
 
     private boolean getMarried;
 
@@ -26,6 +28,10 @@ public class Person {
     private static int numberOfPeople = 0;
 
     public Person() {
+
+        String a = "hello";
+        Scanner input = new Scanner(System.in);
+        Character.
         age = 0;
         friendsList = new ArrayList<Person>();
         numberOfPeople++;
@@ -90,9 +96,8 @@ public class Person {
 
     public Person giveBirth(String name) {
         Person baby = new Person(name);
-
+        return baby;
     }
-
 
     public static boolean checkSameCity(Person p1, Person p2) {
         return p1.getCity().equals(p2.getCity());

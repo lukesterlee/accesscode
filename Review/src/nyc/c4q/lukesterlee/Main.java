@@ -1,39 +1,43 @@
 package nyc.c4q.lukesterlee;
 
+
+import java.util.Scanner;
 public class Main {
 
-    public static void printTitle(String name) {
 
+
+    public static int sum(int a, int b) {
+        return a+b;
     }
 
-    public static String getTitle(String name) {
+    public static int max(int a, int b) {
+        if (a >= b)
+            return a;
+        else
+            return b;
+    }
 
+    public static int sumOfDigits(int n) {
+        int sum = 0;
+        while (n > 0) {
+            sum += n%10;
+            n = n/10;
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
+        Cat c1 = new Cat("Mimi");
+        Cat c2 = new Cat("Bobo");
 
+        Course c1;
+        c1.name
 
+        System.out.println(c1.height);
 
-
-        // Create two different
-        // Bicycle objects
-        Bicycle bike1 = new Bicycle();
-        Bicycle bike2 = new Bicycle();
-
-        // Invoke methods on
-        // those objects
-        bike1.changeCadence(50);
-        bike1.speedUp(10);
-        bike1.changeGear(2);
-        bike1.printStates();
-
-        bike2.changeCadence(50);
-        bike2.speedUp(10);
-        bike2.changeGear(2);
-        bike2.changeCadence(40);
-        bike2.speedUp(10);
-        bike2.changeGear(3);
-        bike2.printStates();
+        c1.setHeight(6);
+        c1.height = 27;
+        c2.height = 0; // What?????
 
     }
 }

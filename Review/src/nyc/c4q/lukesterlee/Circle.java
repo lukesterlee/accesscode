@@ -11,11 +11,11 @@ public class Circle {
     private static int numberOfCircles = 0;
 
     public Circle() {
-        radius = 1.0;
+
     }
 
-    public Circle(double newRadius) {
-        this.radius = newRadius;
+    public Circle(double radius) {
+        this.radius = radius;
     }
 
     public double getRadius() {
@@ -27,14 +27,16 @@ public class Circle {
     }
 
     public double getArea() {
-        return (radius * radius * Math.PI);
+        double area = Math.PI*radius*radius;
+        return area;
+
+        // return Math.PI*radius*radius;
     }
 
-    public double getCircumference() {
-        return (2 * Math.PI * radius);
+    public double getCir
+
+    public static void main(String[] args) {
+        Circle c1 = new Circle(5.0);
     }
 
-    public static int getNumberOfCircles() {
-        return numberOfCircles;
-    }
 }
