@@ -22,6 +22,9 @@ public class WebPageSanitizer {
 
         }
         return html;
+
+        //String regex = "<script>//+</script>";
+        //return html.replaceAll(regex, "");
     }
 
     public static void main(String[] args) {

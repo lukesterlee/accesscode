@@ -5,7 +5,7 @@ package nyc.c4q.lukesterlee;
  */
 public class LettersInNumbers {
 
-    public static letterCount() {
+    //public static letterCount() {
 
-    }
+    //}
 }
