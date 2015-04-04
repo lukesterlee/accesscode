@@ -1,6 +1,7 @@
 package nyc.c4q.ac21.ac20150322;
 
 import java.net.URL;
+import java.util.Scanner;
 
 /**
  * Created by Luke Lee on 4/1/15.
@@ -39,5 +40,11 @@ public class Main {
         System.out.println();
 
         printUrl(url);
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter URL address : ");
+        String userUrl = input.next();
+
+
     }
 }

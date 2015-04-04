@@ -15,13 +15,16 @@ public class DistributionCalculator {
 
         int totalNumberOfCharacters = 0;
         int[] count = new int[26];
+        for (int i = 0; i < count.length; i++) {
+            count[i] = 0;
+        }
         Scanner input = new Scanner(textFile);
+
         ArrayList<Double> percentages = new ArrayList<Double>();
 
         while (input.hasNext()) {
             String word = input.next();
             for (int i = 0; i < word.length(); i++) {
-
                 if (Character.isLetter(word.charAt(i))) {
                     char letter = Character.toLowerCase(word.charAt(i));
                     totalNumberOfCharacters++;
@@ -32,17 +35,33 @@ public class DistributionCalculator {
         }
 
         for (int i = 0; i < count.length; i++) {
-            double percentage = (count[0] / totalNumberOfCharacters)*100;
+            double percentage;
+            if (count[i] == 0) {
+                percentage = 0;
+            }
+            else {
+                percentage = (count[i]*100) / totalNumberOfCharacters;
+            }
             percentages.add(percentage);
         }
-
-
-
         return percentages;
-
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+
+
+        String fileName = "/Users/Willee/Desktop/accesscode/HW_20150403/resources/hello.txt";
+        File file = new File(fileName);
+
+        ArrayList<Double> percentage = calculate(file);
+
+        int letter = 97;
+        for (Double probability : percentage) {
+            System.out.print((char) letter + " = ");
+            System.out.println(probability);
+            letter++;
+        }
+
 
     }
 }
