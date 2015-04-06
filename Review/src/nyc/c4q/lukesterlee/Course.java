@@ -20,7 +20,7 @@ public class Course {
 
     public void register(Person p1) {
         studentsList.add(p1);
-        p1.
+
     }
 
     public static void setSchoolName(String newName) {

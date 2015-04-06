@@ -5,27 +5,29 @@ package nyc.c4q.lukesterlee;
  */
 public class Cat {
 
-    public String name;
-    private int height;
+
+    String name;
+    int age;
+
+    public Cat() {
+
+        age = 0;
+
+    }
 
     public Cat(String name) {
         this.name = name;
+        age = 0;
     }
 
-    public int getHeight() {
-        return height;
+    public Cat(String name, int age) {
+        this.age = age;
+        this.name = name;
     }
 
-    public void setHeight(int height) {
-        if (height > 0)
-            this.height = height;
-    }
 
-    public static void main(String[] args) {
-        Cat c1 = new Cat("Mimi");
-        Cat c2 = new Cat("Bobo");
 
-        c1.height = 27;
-        c2.height = 0; // What?????
-    }
+
+
+
 }

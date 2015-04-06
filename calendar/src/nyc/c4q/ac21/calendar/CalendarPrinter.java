@@ -43,12 +43,14 @@ public class CalendarPrinter
 
 
         int week;
+
         // for padding.
         for (int j = 1; j < day.get(Calendar.DAY_OF_WEEK); j++) {
             System.out.print("    ");
         }
 
         week = day.get(Calendar.DAY_OF_WEEK);
+
         for (int i = day.get(Calendar.DAY_OF_MONTH); i <= date.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
 
             if (i < 10)

@@ -15,26 +15,33 @@ public class Person {
     private String instagramUsername;
     private String city;
 
+    private BankAccount account;
+
     private int age;
     private int phoneNumber;
     private int ssnNumber;
     private int zipCode;
+    private double weight;
     private String school;
 
     private boolean getMarried;
 
     private ArrayList<Person> friendsList;
 
+
+    private static ArrayList<Person> population = new ArrayList<Person>();
     private static int numberOfPeople = 0;
+    private static int numberOfEyes = 2;
+
 
     public Person() {
 
         String a = "hello";
         Scanner input = new Scanner(System.in);
-        Character.
         age = 0;
         friendsList = new ArrayList<Person>();
         numberOfPeople++;
+        population.add(this);
     }
 
     public Person(String name) {
@@ -74,6 +81,10 @@ public class Person {
         return age;
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
@@ -90,6 +101,10 @@ public class Person {
         return identity.equals("Gay");
     }
 
+    public boolean isStraught() {
+        return identity.equals("Straight");
+    }
+
     public void addFriend(Person newFriend) {
         friendsList.add(newFriend);
     }
@@ -104,6 +119,17 @@ public class Person {
     }
 
 
+    public static double averageWeight() {
+        double sum = 0;
+
+        for (Person person : population) {
+            sum += person.getWeight();
+        }
+
+        double average = sum/population.size();
+
+        return average;
+    }
 
 
 

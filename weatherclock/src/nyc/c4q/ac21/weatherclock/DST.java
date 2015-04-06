@@ -1,4 +1,4 @@
-package nyc.c4q.ac21.calendar;
+package nyc.c4q.ac21.weatherclock;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,18 +18,16 @@ public class DST {
      */
     public static void getDSTDates(HashMap<Integer, Calendar> startDates, HashMap<Integer, Calendar> endDates) {
         ArrayList<String> lines = FileTools.readLinesFromFile("dst.csv");
-        // FIXME: Write this code!
-        // Each line in the file is of the form "start,end", where both dates
-        // are in the same year.  This represents the dates DST starts and
-        // ends in this year.
-        //
-        // Use DateTools.parseDate.
-        for (String dst : lines) {
-            String[] dates = dst.split(",");
-            String[] startYear = dates[0].split("-");
-            String[] endYear = dates[1].split("-");
-            startDates.put(Integer.parseInt(startYear[0]), DateTools.parseDate(dates[0]));
-            endDates.put(Integer.parseInt(endYear[0]), DateTools.parseDate(dates[1]));
+        for (String line : lines) {
+            // Split the start and end date at the comma.
+            int comma = line.indexOf(',');
+            // Parse each date.
+            Calendar start = DateTime.parseDate(line.substring(0, comma));
+            Calendar end = DateTime.parseDate(line.substring(comma + 1));
+            // Store the result.
+            int year = start.get(Calendar.YEAR);
+            startDates.put(year, start);
+            endDates.put(year, end);
         }
     }
 
@@ -47,13 +45,12 @@ public class DST {
         // Populate them.
         DST.getDSTDates(dstStartDates, dstEndDates);
 
-
-        int today = date.DAY_OF_YEAR;
-        int start = dstStartDates.get(date.get(Calendar.YEAR)).get(Calendar.DAY_OF_YEAR);
-        int end = dstEndDates.get(date.get(Calendar.YEAR)).get(Calendar.DAY_OF_YEAR);
-
-        return (start <= today && today <= end);
-
+        // Get the start and end date for this year.
+        int year = date.get(Calendar.YEAR);
+        Calendar dstStart = dstStartDates.get(year);
+        Calendar dstEnd = dstEndDates.get(year);
+        // Is the given date after the start and before the end?
+        return date.compareTo(dstStart) == 1 && date.compareTo(dstEnd) == -1;
     }
 
 }

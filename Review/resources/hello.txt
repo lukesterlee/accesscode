@@ -1,0 +1,48 @@
+Understanding Java's Object-Oriented Programming (OOP)
+Java is object-oriented. What does that mean? Unlike languages, such as FORTRAN, which focus on giving the computer imperative "Do this/Do that" commands, object-oriented languages focus on data. Of course, object-oriented programs still tell the computer what to do. They start, however, by organizing the data, and the commands come later.
+
+Object-oriented languages are better than "Do this/Do that" languages because they organize data in a way that lets people do all kinds of things with it. To modify the data, you can build on what you already have, rather than scrap everything you've done and start over each time you need to do something new. Although computer programmers are generally smart people, they took awhile to figure this out.
+
+Objects and their classes
+In an object-oriented language, you use objects and classes to organize your data.
+
+Imagine that you're writing a computer program to keep track of the houses in a new condominium development (still under construction). The houses differ only slightly from one another. Each house has a distinctive siding color, an indoor paint color, a kitchen cabinet style, and so on. In your object-oriented computer program, each house is an object.
+
+But objects aren't the whole story. Although the houses differ slightly from one another, all the houses share the same list of characteristics. For instance, each house has a characteristic known as siding color. Each house has another characteristic known as kitchen cabinet style. In your object-oriented program, you need a master list containing all the characteristics that a house object can possess. This master list of characteristics is called a class.
+
+So there you have it. Object-oriented programming is misnamed. It should really be called "programming with classes and objects."
+
+Notice that the word classes was listed first? Think again about a housing development that's under construction. Somewhere on the lot, in a rickety trailer parked on bare dirt, is a master list of characteristics known as a blueprint. An architect's blueprint is like an object-oriented programmer's class. A blueprint is a list of characteristics that each house will have. The blueprint says, "siding." The actual house object has gray siding. The blueprint says, "kitchen cabinet." The actual house object has Louis XIV kitchen cabinets.
+
+A year after you create the blueprint, you use it to build ten houses. It's the same with classes and objects. First, the programmer writes code to describe a class. Then when the program runs, the computer creates objects from the (blueprint) class.
+
+So that's the real relationship between classes and objects. The programmer defines a class, and from the class definition, the computer makes individual objects.
+
+What's so good about an object-oriented language?
+Imagine that you have already written a computer program to keep track of the building instructions for houses in a new development. Then, the big boss decides on a modified plan — a plan in which half the houses have three bedrooms, and the other half have four.
+
+If you use the old FORTRAN/C style of computer programming, your instructions look like this:
+Dig a ditch for the basement.
+Lay concrete around the sides of the ditch.
+Put two-by-fours along the sides for the basement's frame.
+...
+
+This would be like an architect creating a long list of instructions instead of a blueprint. To modify the plan, you have to sort through the list to find the instructions for building bedrooms. To make things worse, the instructions could be scattered among pages 234, 394–410, 739, 10, and 2. If the builder had to decipher other peoples' complicated instructions, the task would be ten times harder.
+
+Starting with a class, however, is like starting with a blueprint. If you decide to have both three- and four-bedroom houses, you can start with a blueprint called the house blueprint that has a ground floor and a second floor, but has no indoor walls drawn on the second floor. Then, you make two more second-floor blueprints — one for the three-bedroom house and another for the four-bedroom house. (You name these new blueprints the three-bedroom house blueprint and the four-bedroom house blueprint.)
+
+Your builder colleagues are amazed with your sense of logic and organization, but they have concerns. They pose a question. "You called one of the blueprints the 'three-bedroom house' blueprint. How can you do this if it's a blueprint for a second floor and not for a whole house?"
+
+You smile knowingly and answer, "The three-bedroom house blueprint can say, 'For info about the lower floors, see the original house blueprint.' That way, the three-bedroom house blueprint describes a whole house. The four-bedroom house blueprint can say the same thing. With this setup, we can take advantage of all the work we already did to create the original house blueprint and save lots of money."
+
+In the language of object-oriented programming, the three- and four-bedroom house classes are inheriting the features of the original house class. You can also say that the three- and four-bedroom house classes are extending the original house class.
+
+The original house class is called the superclass of the three- and four-bedroom house classes. In that vein, the three- and four-bedroom house classes are subclasses of the original house class. Put another way, the original house class is called the parent class of three- and four-bedroom house classes. The three- and four-bedroom house classes are child classes of the original house class.
+
+Needless to say, your home-builder colleagues are jealous. A crowd of home-builders is mobbing around you to hear about your great ideas. So, at that moment, you drop one more bombshell: "By creating a class with subclasses, we can reuse the blueprint in the future. If someone comes along and wants a five-bedroom house, we can extend our original house blueprint by making a five-bedroom house blueprint. We'll never have to spend money for an original house blueprint again."
+
+"But," says a colleague in the back row, "what happens if someone wants a different first-floor design? Do we trash the original house blueprint or start scribbling all over the original blueprint? That'll cost big bucks, won't it?"
+
+In a confident tone, you reply, "We don't have to mess with the original house blueprint. If someone wants a Jacuzzi in his living room, we can make a new, small blueprint describing only the new living room and call this the Jacuzzi-in-living-room house blueprint. Then, this new blueprint can refer to the original house blueprint for info on the rest of the house (the part that's not in the living room)." In the language of object-oriented programming, the Jacuzzi-in-living-room house blueprint still extends the original house blueprint. The Jacuzzi blueprint is still a subclass of the original house blueprint. In fact, all the terminology about superclass, parent class, and child class still applies. The only thing that's new is that the Jacuzzi blueprint overrides the living room features in the original house blueprint.
+
+In the days before object-oriented languages, the programming world experienced a crisis in software development. Programmers wrote code, then discovered new needs, and then had to trash their code and start from scratch. This happened over and over again because the code that the programmers were writing couldn't be reused. Object-oriented programming changed all this for the better.

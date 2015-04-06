@@ -1,5 +1,6 @@
 package nyc.c4q.lukesterlee;
 
+import java.net.URL;
 import java.util.Scanner;
 
 /**
@@ -9,18 +10,21 @@ public class WebPageSanitizer {
 
     public static String sanitize(String html) {
 
-        int startIndex = 0;
-        int endIndex = 0;
+        int startIndex;
+        int endIndex;
 
-        while (startIndex != -1) {
-            startIndex = html.indexOf("<script>");
-            endIndex = html.indexOf("</script") + 9;
-
-            String delete = html.substring(startIndex, endIndex);
-
-            html = html.replace(delete, "");
-
+        while(true) {
+            startIndex = html.indexOf("<script");
+            endIndex = html.indexOf("</script>") + 9;
+            if (startIndex != -1) {
+                String delete = html.substring(startIndex, endIndex);
+                html = html.replace(delete, "");
+            }
+            else
+                break;
         }
+
+
         return html;
 
         //String regex = "<script>//+</script>";
@@ -28,6 +32,20 @@ public class WebPageSanitizer {
     }
 
     public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter an URL : ");
+
+        String userUrl = input.nextLine();
+
+        URL url = HTTP.stringToURL(userUrl);
+
+        String html = HTTP.get(url);
+
+        System.out.println(sanitize(html));
+        //System.out.println(html);
+
 
     }
 }
