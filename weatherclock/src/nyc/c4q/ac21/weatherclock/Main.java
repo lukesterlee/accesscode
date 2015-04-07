@@ -94,6 +94,8 @@ public class Main {
             terminal.moveTo(9, xPosition - 2);
             terminal.write("sunset at " + sunsetTime);
 
+            // Write calendar.
+
             // Pause for one second, and do it again.
             DateTime.pause(1.0);
         }

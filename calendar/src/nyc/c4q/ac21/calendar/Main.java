@@ -13,6 +13,7 @@ public class Main {
         String dateString = scanner.nextLine();
         Calendar date = DateTools.parseDate(dateString);
 
+
         if (date == null)
             return;
         System.out.println();
