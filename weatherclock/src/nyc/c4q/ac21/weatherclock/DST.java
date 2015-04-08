@@ -38,7 +38,7 @@ public class DST {
      * @return
      *   True if DST is in effect on this date.
      */
-    public static boolean isDST(Calendar date) {
+    public static String isDST(Calendar date) {
         // Create hash maps to contain the start and end dates for DST in each year.
         HashMap<Integer, Calendar> dstStartDates = new HashMap<Integer, Calendar>();
         HashMap<Integer, Calendar> dstEndDates = new HashMap<Integer, Calendar>();
@@ -49,8 +49,12 @@ public class DST {
         int year = date.get(Calendar.YEAR);
         Calendar dstStart = dstStartDates.get(year);
         Calendar dstEnd = dstEndDates.get(year);
+
         // Is the given date after the start and before the end?
-        return date.compareTo(dstStart) == 1 && date.compareTo(dstEnd) == -1;
+        if (date.compareTo(dstStart) == 1 && date.compareTo(dstEnd) == -1)
+            return "DST is in effect.";
+        else
+            return "DST is not in effect.";
     }
 
 }

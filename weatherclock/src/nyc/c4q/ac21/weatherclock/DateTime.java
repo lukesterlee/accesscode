@@ -80,6 +80,26 @@ public class DateTime {
         return null;
     }
 
+    public static String parseDateReverse(Calendar date) {
+        String year = Integer.toString(date.get(Calendar.YEAR));
+
+        int monthInNumber = date.get(Calendar.MONTH) + 1;
+        String month;
+        if (monthInNumber < 10)
+            month  = "0" + monthInNumber;
+        else
+            month = monthInNumber + "";
+
+        int dayInNumber = date.get(Calendar.DAY_OF_MONTH);
+        String day;
+        if (dayInNumber < 10)
+            day = "0" + dayInNumber;
+        else
+            day = dayInNumber + "";
+
+        return (year + "-" + month + "-" + day);
+    }
+
     /**
      * Returns the following day.
      */
