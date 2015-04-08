@@ -32,6 +32,8 @@ public class CalendarPrinter
         //   DateTools.getMonthNames()
         //   DateTools.getNextDay() to loop through days in the month.
 
+        Calendar today = Calendar.getInstance();
+
         HashMap<Integer, String> monthNames = DateTools.getMonthNames();
 
         System.out.println("\n" + monthNames.get(date.get(Calendar.MONTH)) + " " + date.get(Calendar.YEAR));
