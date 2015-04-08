@@ -73,26 +73,42 @@ public class Main {
         return today;
     }
 
+    public static boolean is24(String hourFormat) {
+        return hourFormat.equals("24");
+    }
+
+    public static boolean isCelcius(String tempFormat) {
+        return tempFormat.equalsIgnoreCase("C");
+    }
+
     /**
      * SAMPLE CODE: Displays a very primitive clock.
      */
     public static void main(String[] args) throws IOException {
 
-        String name, zipCode, address;
+        String name, zipCode, address, hourFormat, tempFormat;
 
         Scanner input = new Scanner(System.in);
 
+        // Get name from the user.
         System.out.print("Enter your name : ");
-
         name = input.nextLine();
 
+        // Get ZIP code from the user.
         System.out.print("Enter your ZIP code : ");
-
         zipCode = input.nextLine();
-
         address = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",us";
-
         URL url = HTTP.stringToURL(address);
+
+        // Get 12-24 Hour format from the user.
+        System.out.print("Choose hour format (12/24) : ");
+        hourFormat = input.nextLine();
+        boolean is24 = is24(hourFormat);
+
+        // Get Farenheit/Celcius format from the user.
+        System.out.print("Choose temperature format (C/F) : ");
+        tempFormat = input.nextLine();
+        boolean isCelcius = isCelcius(tempFormat);
 
         // Find out the size of the terminal currently.
         final int numCols = TerminalSize.getNumColumns();
@@ -130,6 +146,7 @@ public class Main {
         int yPosition = 1 + numRows / 2 - 5;
 
         while (true) {
+
             // Get the current date and time.
             Calendar cal = Calendar.getInstance();
 
@@ -138,15 +155,6 @@ public class Main {
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DAY_OF_MONTH);
 
-            // Write the time, including seconds, in white.
-            String time = DateTime.formatTime(cal, true);
-            if (cal.get(Calendar.HOUR_OF_DAY) >= 12)
-                time += " PM";
-            else
-                time += " AM";
-            terminal.setTextColor(AnsiTerminal.Color.WHITE);
-            terminal.moveTo(3, xPosition);
-            terminal.write(time);
 
             // Write the date in gray.
             String weather = Weather.getWeather(url);
@@ -160,10 +168,10 @@ public class Main {
 
 
             // Write temperature.
-            String temp = Weather.getTemperature(url);
+            String temp = Weather.getTemperature(url, isCelcius);
             terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
             terminal.moveTo(7, xPosition);
-            terminal.write("Temperature : " + temp + "F");
+            terminal.write("Temperature : " + temp);
 
             // Write pressure.
             String pressure = Weather.getPressure(url);
@@ -199,15 +207,12 @@ public class Main {
             terminal.write(isDST);
 
 
-
-
             // Write the day of the week in green on a blue background.
             String today = getToday(cal);
             terminal.setTextColor(AnsiTerminal.Color.WHITE);
             terminal.moveTo(15, xPosition);
             terminal.write(today);
 
-            // Write calendar.
 
             // Write greeting.
             terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
@@ -226,8 +231,29 @@ public class Main {
             terminal.moveTo(20, xPosition);
             terminal.write("Quote of the day : " + quote);
 
-            // Pause for one second, and do it again.
-            DateTime.pause(1.0);
+
+            // this while loop updates every second.
+            for(int i  = 1; i <= 3600; i++) {
+                // Get the current date and time.
+                Calendar cal2 = Calendar.getInstance();
+
+                // Write the time, including seconds, in white.
+                String time = DateTime.formatTime(cal2, true);
+                if (cal2.get(Calendar.HOUR_OF_DAY) >= 12)
+                    time += " PM";
+                else
+                    time += " AM";
+                terminal.setTextColor(AnsiTerminal.Color.WHITE);
+                terminal.moveTo(3, xPosition);
+                terminal.write(time);
+
+                // Pause for one second, and do it again.
+                DateTime.pause(1.0);
+            }
+
+
         }
+
+
     }
 }

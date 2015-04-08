@@ -13,6 +13,10 @@ public class DateTime {
     public static final SimpleDateFormat TIME_FORMAT_SECS = new SimpleDateFormat("h:mm:ss");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:MM");
 
+    // this is for 24-hour clock.
+    public static final SimpleDateFormat TIME_FORMAT_24 = new SimpleDateFormat("HH:mm");
+    public static final SimpleDateFormat TIME_FORMAT_SECS_24 = new SimpleDateFormat("HH:mm:ss");
+
     /**
      * Formats a 'Calendar' object as a date.
      * @param cal
@@ -81,23 +85,11 @@ public class DateTime {
     }
 
     public static String parseDateReverse(Calendar date) {
-        String year = Integer.toString(date.get(Calendar.YEAR));
-
-        int monthInNumber = date.get(Calendar.MONTH) + 1;
-        String month;
-        if (monthInNumber < 10)
-            month  = "0" + monthInNumber;
+        if (date == null)
+            return null;
         else
-            month = monthInNumber + "";
+            return DATE_FORMAT.format(date.getTime());
 
-        int dayInNumber = date.get(Calendar.DAY_OF_MONTH);
-        String day;
-        if (dayInNumber < 10)
-            day = "0" + dayInNumber;
-        else
-            day = dayInNumber + "";
-
-        return (year + "-" + month + "-" + day);
     }
 
     /**

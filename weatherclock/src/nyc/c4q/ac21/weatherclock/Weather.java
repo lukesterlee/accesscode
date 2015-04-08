@@ -13,6 +13,12 @@ import java.util.Calendar;
  */
 public class Weather {
 
+    public static String weatherPicture(String condition) {
+        if (condition.equalsIgnoreCase("light rain")) {
+
+        }
+        return "";
+    }
 
     public static String getWeather(URL url) {
         String doc = HTTP.get(url);
@@ -24,17 +30,23 @@ public class Weather {
     }
 
 
-    public static String getTemperature(URL url) {
+    public static String getTemperature(URL url, boolean isCelcius) {
 
         String doc = HTTP.get(url);
         JSONObject obj = (JSONObject) JSONValue.parse(doc);
         JSONObject main = (JSONObject) obj.get("main");
         DecimalFormat df = new DecimalFormat("#.0");
-
         Double temp = (Double) main.get("temp");
         temp -= 273;
-        temp = temp*(9/5) + 32;
-        return df.format(temp);
+
+        if (isCelcius)
+            return df.format(temp) + "°C";
+        else {
+            temp = temp*(9/5) + 32;
+            return df.format(temp) + "°F";
+        }
+
+
     }
 
     public static String getPressure(URL url) {
