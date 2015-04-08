@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Scanner;
-import java.util.concurrent.CancellationException;
 import java.net.URL;
 
 public class Main {
@@ -141,6 +140,13 @@ public class Main {
         // Get sunset time for the current day.
         Calendar sunrise = getSunrise();
 
+        Calendar startingTime = Calendar.getInstance();
+
+        // Get the quote of the day.
+        String quote = Quote.getQuote(startingTime);
+
+        // Get DST text.
+        String isDST = DST.isDST(startingTime);
 
         int xPosition = 1 + numCols / 2 - 5;
         int yPosition = 1 + numRows / 2 - 5;
@@ -201,7 +207,7 @@ public class Main {
             terminal.write("Sunset at " + sunsetTime + " PM");
 
             // Write DST.
-            String isDST = DST.isDST(cal);
+            isDST = DST.isDST(cal);
             terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
             terminal.moveTo(13, xPosition);
             terminal.write(isDST);
@@ -213,6 +219,11 @@ public class Main {
             terminal.moveTo(15, xPosition);
             terminal.write(today);
 
+            // Write holiday.
+            String holiday = Holidays.getNationalHoliday(cal);
+            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
+            terminal.moveTo(16, xPosition);
+            terminal.write(holiday);
 
             // Write greeting.
             terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
@@ -226,14 +237,14 @@ public class Main {
 
 
             // Write Quote of the day.
-            String quote = Quote.getQuote(cal);
+            quote = Quote.getQuote(cal);
             terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
             terminal.moveTo(20, xPosition);
             terminal.write("Quote of the day : " + quote);
 
 
             // this while loop updates every second.
-            for(int i  = 1; i <= 3600; i++) {
+            for(int i  = 1; i <= 3600*3; i++) {
                 // Get the current date and time.
                 Calendar cal2 = Calendar.getInstance();
 
