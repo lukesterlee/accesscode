@@ -20,7 +20,7 @@ public class Weather {
 
     public static void printTemperature(AnsiTerminal terminal, URL url, boolean isCelcius) {
 
-        int x = 18;
+        int x = 21;
         int y = 13;
 
         // Write temperature.
@@ -34,7 +34,7 @@ public class Weather {
 
     public static void printPressure(AnsiTerminal terminal, URL url) {
 
-        int x = 18;
+        int x = 21;
         int y = 13;
 
         // Write pressure.
@@ -45,7 +45,7 @@ public class Weather {
 
     public static void printHumidity(AnsiTerminal terminal, URL url) {
 
-        int x = 18;
+        int x = 21;
         int y = 13;
 
         // Write humidity.
@@ -56,7 +56,7 @@ public class Weather {
 
     public static void printWeatherPicture(AnsiTerminal terminal, URL url) {
         ArrayList<String> weapic = Weather.weatherPicture(Weather.getWeatherCode(url));
-        int x = 2;
+        int x = 5;
         int y = 13;
         for (int i = 0; i < weapic.size(); i++) {
             terminal.moveTo(y++, x);

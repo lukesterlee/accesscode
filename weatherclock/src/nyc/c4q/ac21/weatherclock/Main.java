@@ -192,9 +192,9 @@ public class Main {
         System.out.print("Set the alarm clock? (Y/N) : ");
         boolean isAlarm = input.nextLine().equalsIgnoreCase("Y");
         if (isAlarm) {
-            System.out.print("Set the hour in 24-hour format (HH) : ");
+            System.out.print("Set the hour in 24-hour format : ");
             alarmHour = input.nextInt();
-            System.out.print("Set the minute (MM) : ");
+            System.out.print("Set the minute : ");
             alarmMinute = input.nextInt();
         }
 
@@ -243,10 +243,6 @@ public class Main {
         Quote.printQuote(startingTime, terminal);
 
 
-        int xPosition = 1 + numCols / 2 - 5;
-        int yPosition = 1 + numRows / 2 - 5;
-
-
         // Write DST.
         DST.printDST(terminal, startingTime);
 
@@ -269,12 +265,12 @@ public class Main {
 
             // Write sunrise time in dark yellow.
             String sunriseTime = displayTime(sunrise, is24);
-            terminal.moveTo(13, 54);
+            terminal.moveTo(14, 54);
             terminal.write("Sunrise at " + sunriseTime);
 
             // Write sunset time in dark yellow.
             String sunsetTime = displayTime(sunset, is24);
-            terminal.moveTo(14, 54);
+            terminal.moveTo(15, 54);
             terminal.write("Sunset at " + sunsetTime);
 
 
@@ -289,36 +285,43 @@ public class Main {
             terminal.write(holiday);
 
             // Write greeting.
-            terminal.moveTo(19, 54);
+            terminal.moveTo(11, 15);
             terminal.write(greeting(cal) + ", " + name);
 
 
             // this while loop updates every second.
             for(int i  = 1; i <= 3600*3; i++) {
 
+
                 // Get the current date and time.
                 Calendar cal2 = Calendar.getInstance();
-                int hour = cal2.get(Calendar.HOUR_OF_DAY);
-                int minute = cal2.get(Calendar.HOUR_OF_DAY);
 
-                if(hour == alarmHour && minute == alarmMinute) {
-                    for (int j = 1; j <= 10; j++) {
-                        terminal.setBackgroundColor(AnsiTerminal.Color.WHITE);
-                        terminal.setTextColor(AnsiTerminal.Color.BLACK);
-                        DateTime.pause(0.5);
-                        terminal.setBackgroundColor(AnsiTerminal.Color.BLACK);
-                        terminal.setTextColor(AnsiTerminal.Color.WHITE);
-                    }
-                }
+//                int hour = cal2.get(Calendar.HOUR_OF_DAY);
+//                int minute = cal2.get(Calendar.MINUTE);
+//
+//                terminal.moveTo(11, 15);
+//                terminal.write(hour + " " + minute);
 
+//                if (hour == alarmHour && minute == alarmMinute) {
+//                    terminal.moveTo(11, 3);
+//                    terminal.write("Alarm is on");
+//                }
+
+
+//                terminal.moveTo(12, 3);
+//                terminal.write("Alarm : " + alarmHour + ":" + alarmMinute);
 
                 String time = displayTimeSeconds(cal2, is24);
 
                 PrintNumbers.printClock(terminal, time);
 
+                PrintNumbers.printDot(terminal, 23, 4);
+                DateTime.pause(0.5);
+                PrintNumbers.printDotOpposite(terminal, 23, 4);
 
                 // Pause for one second, and do it again.
-                DateTime.pause(1.0);
+                DateTime.pause(0.5);
+                terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
             }
 
 

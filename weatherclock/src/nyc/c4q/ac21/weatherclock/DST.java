@@ -12,7 +12,7 @@ public class DST {
     public static void printDST(AnsiTerminal terminal, Calendar date) {
 
         int x = 54;
-        int y = 15;
+        int y = 16;
 
         String isDST = DST.isDST(date);
         terminal.moveTo(y, x);

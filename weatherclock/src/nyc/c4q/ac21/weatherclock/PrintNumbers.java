@@ -28,12 +28,8 @@ public class PrintNumbers {
             terminal.write(hh2.get(j));
         }
 
-        x += 10;
-        y = 4;
-        PrintNumbers.printDot(terminal, x, y);
-
         ArrayList<String> mm1 = getNumber(time.charAt(3));
-        x += 5;
+        x += 16;
         y = 2;
         for (int j = 0; j < mm1.size(); j++) {
             terminal.moveTo(y++, x);
@@ -63,6 +59,23 @@ public class PrintNumbers {
         dot.add("\\__|");
 
         for (int j = 0; j < dot.size(); j++) {
+            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
+            terminal.moveTo(y++, x);
+            terminal.write(dot.get(j));
+        }
+    }
+
+    public static void printDotOpposite(AnsiTerminal terminal, int x, int y) {
+
+        ArrayList<String> dot = new ArrayList<String>();
+        dot.add("■■\\ \n");
+        dot.add("\\__|\n");
+        dot.add("    \n");
+        dot.add("■■\\ \n");
+        dot.add("\\__|");
+
+        for (int j = 0; j < dot.size(); j++) {
+            terminal.setTextColor(AnsiTerminal.Color.BLACK, false);
             terminal.moveTo(y++, x);
             terminal.write(dot.get(j));
         }
