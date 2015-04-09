@@ -24,14 +24,26 @@ public class CalendarPrinter
      * @param date
      *   The date containing the month to print.
      */
-    public static void printMonthCalendar(AnsiTerminal terminal, Calendar date) {
+    public static void printCalendar(Calendar date, AnsiTerminal terminal) {
         // Extract year, month, and day for our date.
         int year = date.get(Calendar.YEAR);
         int month = date.get(Calendar.MONTH);
         int day = date.get(Calendar.DAY_OF_MONTH);
 
+        // Set the x and y axis for printing calendar.
+        int x = 54;
+        int y = 3;
+
+
         // First, show the month name and year.
-        terminal.write(DateTime.getMonthNames().get(month) + " " + year + "\n");
+        terminal.moveTo(y++, x);
+        terminal.write("   " + DateTime.getMonthNames().get(month).toUpperCase() + " " + year);
+
+
+        // Then, write Monday to Sunday.
+        terminal.moveTo(y++, x);
+        terminal.moveTo(y++, x);
+        terminal.write("Su Mo Tu We Th Fr Sa");
 
         // Start the calendar on the first day of the month.
         Calendar cal = Calendar.getInstance();
@@ -40,9 +52,10 @@ public class CalendarPrinter
         // We may need to indent the first line, since some of the days
         // in the first week may not belong to this month.
         int indent = cal.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY;
+        terminal.moveTo(y++, x);
         for (int i = 0; i < indent; ++i)
             // We use four spaces for each day, below.
-            terminal.write("    ");
+            terminal.write("   ");
 
         // Now print each day of the month.  Keep going until we hit the next month.
         while (cal.get(Calendar.YEAR) == year && cal.get(Calendar.MONTH) == month) {
@@ -51,6 +64,7 @@ public class CalendarPrinter
             int d = cal.get(Calendar.DAY_OF_MONTH);
             if (d < 10)
                 System.out.print(' ');
+
             terminal.write(d + "");
 
             if (d == day)
@@ -60,17 +74,14 @@ public class CalendarPrinter
                 // Not today; leave some space.
                 terminal.write(" ");
 
-            if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+            if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
                 // Saturday: move on to the next line for the next date.
-                terminal.write("\n");
-            else
-                // Other days: just leave an extra space.
-                terminal.write(" ");
+                terminal.moveTo(y++, x);
+            }
 
             // On to the next day.
             cal = DateTime.getNextDay(cal);
         }
-        terminal.write("\n");
     }
 
 }

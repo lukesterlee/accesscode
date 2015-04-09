@@ -18,6 +18,15 @@ public class Quote {
 
     static ArrayList<String> lines = FileTools.readLinesFromFile("quote.csv");
 
+    public static void printQuote(Calendar date, AnsiTerminal terminal) throws IOException {
+        int x = 40;
+        int y = 22;
+
+        String quote = getQuote(date);
+        terminal.moveTo(y, x);
+        terminal.write("Quote of the day : " + quote);
+    }
+
     public static String getQuote(Calendar date) throws IOException {
 
         HashMap<String, String> quoteData = new HashMap<String, String>();

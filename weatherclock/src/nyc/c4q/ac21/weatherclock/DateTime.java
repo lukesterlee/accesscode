@@ -9,8 +9,8 @@ import java.util.HashMap;
 public class DateTime {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("h:mm");
-    public static final SimpleDateFormat TIME_FORMAT_SECS = new SimpleDateFormat("h:mm:ss");
+    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm");
+    public static final SimpleDateFormat TIME_FORMAT_SECS = new SimpleDateFormat("hh:mm:ss");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:MM");
 
     // this is for 24-hour clock.
@@ -54,6 +54,15 @@ public class DateTime {
             return TIME_FORMAT_SECS.format(cal.getTime());
         else
             return TIME_FORMAT.format(cal.getTime());
+    }
+
+    public static String formatTime24(Calendar cal, boolean seconds) {
+        if (cal == null)
+            return null;
+        else if (seconds)
+            return TIME_FORMAT_SECS_24.format(cal.getTime());
+        else
+            return TIME_FORMAT_24.format(cal.getTime());
     }
 
     /**

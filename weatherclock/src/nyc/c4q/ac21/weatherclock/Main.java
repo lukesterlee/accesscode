@@ -5,19 +5,42 @@ import org.json.simple.JSONValue;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
-import java.net.URL;
+import java.util.Timer;
+
+/*
+ * Access Code 2.1
+ * Team blah blah : Jorge, Ray, Vanice, Luke
+ *
+ * Our Product Quality
+ * 1. Exception handling
+ * 2. Offline handling
+ * 3. Data Use Efficiency
+ * Basic Requirement
+ *
+ * Additional Features
+ * 1.
+ * 2.
+ * 3.
+ * 4.
+ */
 
 public class Main {
 
     /**
      * SAMPLE CODE: Returns sunset time for the current day.
      */
-    public static Calendar getSunset() {
-        URL url = HTTP.stringToURL("http://api.openweathermap.org/data/2.5/weather?q=New%20York,NY");
+    public static Calendar getSunset(String address) {
+        URL url = HTTP.stringToURL(address);
         String doc = HTTP.get(url);
+        if (doc == null)
+            return null;
+
         JSONObject obj = (JSONObject) JSONValue.parse(doc);
+        if (obj == null)
+            return null;
 
         JSONObject sys = (JSONObject) obj.get("sys");
         if (sys == null)
@@ -28,8 +51,10 @@ public class Main {
         return DateTime.fromTimestamp(sunsetTimestamp);
     }
 
-    public static Calendar getSunrise() {
-        URL url = HTTP.stringToURL("http://api.openweathermap.org/data/2.5/weather?q=New%20York,NY");
+    public static Calendar getSunrise(String address) {
+
+
+        URL url = HTTP.stringToURL(address);
         String doc = HTTP.get(url);
         JSONObject obj = (JSONObject) JSONValue.parse(doc);
 
@@ -80,12 +105,65 @@ public class Main {
         return tempFormat.equalsIgnoreCase("C");
     }
 
+    public static String displayTimeSeconds(Calendar date, boolean is24) {
+        String time;
+        if (is24) {
+            // Write the time, including seconds, in white.
+            time = DateTime.formatTime24(date, true);
+
+        } else {
+            // Write the time, including seconds, in white.
+            time = DateTime.formatTime(date, true);
+            if (date.get(Calendar.HOUR_OF_DAY) >= 12)
+                time += " PM";
+            else
+                time += " AM";
+        }
+        return time;
+    }
+
+    public static String displayTime(Calendar date, boolean is24) {
+        String time;
+        if (is24) {
+            // Write the time, including seconds, in white.
+            time = DateTime.formatTime24(date, false);
+
+        } else {
+            // Write the time, including seconds, in white.
+            time = DateTime.formatTime(date, false);
+            if (date.get(Calendar.HOUR_OF_DAY) >= 12)
+                time += " PM";
+            else
+                time += " AM";
+        }
+        return time;
+    }
+
+    public static void setColor(AnsiTerminal terminal, Calendar sunrise, Calendar sunset, Calendar time) {
+
+        int current = time.get(Calendar.HOUR_OF_DAY);
+        int rise = sunrise.get(Calendar.HOUR_OF_DAY);
+        int set = sunset.get(Calendar.HOUR_OF_DAY);
+
+        // current >= rise && current <= set
+        if (false) {
+            terminal.setBackgroundColor(AnsiTerminal.Color.WHITE);
+            terminal.setTextColor(AnsiTerminal.Color.BLACK, false);
+        } else {
+            terminal.setBackgroundColor(AnsiTerminal.Color.BLACK);
+            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
+        }
+
+    }
+
     /**
      * SAMPLE CODE: Displays a very primitive clock.
      */
     public static void main(String[] args) throws IOException {
 
         String name, zipCode, address, hourFormat, tempFormat;
+        int alarmHour = 0;
+        int alarmMinute = 0;
 
         Scanner input = new Scanner(System.in);
 
@@ -99,6 +177,7 @@ public class Main {
         address = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",us";
         URL url = HTTP.stringToURL(address);
 
+
         // Get 12-24 Hour format from the user.
         System.out.print("Choose hour format (12/24) : ");
         hourFormat = input.nextLine();
@@ -108,6 +187,16 @@ public class Main {
         System.out.print("Choose temperature format (C/F) : ");
         tempFormat = input.nextLine();
         boolean isCelcius = isCelcius(tempFormat);
+
+        // Get the alarm time.
+        System.out.print("Set the alarm clock? (Y/N) : ");
+        boolean isAlarm = input.nextLine().equalsIgnoreCase("Y");
+        if (isAlarm) {
+            System.out.print("Set the hour in 24-hour format (HH) : ");
+            alarmHour = input.nextInt();
+            System.out.print("Set the minute (MM) : ");
+            alarmMinute = input.nextInt();
+        }
 
         // Find out the size of the terminal currently.
         final int numCols = TerminalSize.getNumColumns();
@@ -128,135 +217,105 @@ public class Main {
             }
         });
 
+        // Get sunset time for the current day.
+        Calendar sunset = getSunset(address);
+
+        // Get sunset time for the current day.
+        Calendar sunrise = getSunrise(address);
+
+        // Get starting time.
+        Calendar startingTime = Calendar.getInstance();
+
+        // Set background color and text color
+        setColor(terminal, sunrise, sunset, startingTime);
+
         // Clear the screen to black.
-        terminal.setBackgroundColor(AnsiTerminal.Color.BLACK);
         terminal.clear();
+
         // Don't show the cursor.
         terminal.hideCursor();
 
-        // Get sunset time for the current day.
-        Calendar sunset = getSunset();
 
-        // Get sunset time for the current day.
-        Calendar sunrise = getSunrise();
+        // Write calendar.
+        CalendarPrinter.printCalendar(startingTime, terminal);
 
-        Calendar startingTime = Calendar.getInstance();
+        // Write the quote of the day.
+        Quote.printQuote(startingTime, terminal);
 
-        // Get the quote of the day.
-        String quote = Quote.getQuote(startingTime);
-
-        // Get DST text.
-        String isDST = DST.isDST(startingTime);
 
         int xPosition = 1 + numCols / 2 - 5;
         int yPosition = 1 + numRows / 2 - 5;
 
+
+        // Write DST.
+        DST.printDST(terminal, startingTime);
+
+
+        // this while loop updates every 3 hour.
         while (true) {
 
             // Get the current date and time.
             Calendar cal = Calendar.getInstance();
 
-            // Get the current year.
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH);
-            int day = cal.get(Calendar.DAY_OF_MONTH);
+            // weather picture test
+            Weather.printWeatherPicture(terminal, url);
 
+            Weather.printTemperature(terminal, url, isCelcius);
 
-            // Write the date in gray.
-            String weather = Weather.getWeather(url);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(5, xPosition);
-            terminal.write(weather);
+            Weather.printPressure(terminal, url);
 
-
-            // Set the background color back to black.
-            terminal.setBackgroundColor(AnsiTerminal.Color.BLACK);
-
-
-            // Write temperature.
-            String temp = Weather.getTemperature(url, isCelcius);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(7, xPosition);
-            terminal.write("Temperature : " + temp);
-
-            // Write pressure.
-            String pressure = Weather.getPressure(url);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(8, xPosition);
-            terminal.write("Pressure : " + pressure + " in Hg");
-
-            // Write humidity.
-            Integer humidity = Weather.getHumidity(url);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(9, xPosition);
-            terminal.write("Humidity : " + humidity + "%");
-
+            Weather.printHumidity(terminal, url);
 
 
             // Write sunrise time in dark yellow.
-            String sunriseTime = DateTime.formatTime(sunrise, false);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(11, xPosition);
-            terminal.write("Sunrise at " + sunriseTime + " AM");
-
+            String sunriseTime = displayTime(sunrise, is24);
+            terminal.moveTo(13, 54);
+            terminal.write("Sunrise at " + sunriseTime);
 
             // Write sunset time in dark yellow.
-            String sunsetTime = DateTime.formatTime(sunset, false);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(12, xPosition);
-            terminal.write("Sunset at " + sunsetTime + " PM");
-
-            // Write DST.
-            isDST = DST.isDST(cal);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(13, xPosition);
-            terminal.write(isDST);
+            String sunsetTime = displayTime(sunset, is24);
+            terminal.moveTo(14, 54);
+            terminal.write("Sunset at " + sunsetTime);
 
 
             // Write the day of the week in green on a blue background.
             String today = getToday(cal);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE);
-            terminal.moveTo(15, xPosition);
+            terminal.moveTo(17, 54);
             terminal.write(today);
 
             // Write holiday.
             String holiday = Holidays.getNationalHoliday(cal);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(16, xPosition);
+            terminal.moveTo(18, 54);
             terminal.write(holiday);
 
             // Write greeting.
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(17, xPosition);
+            terminal.moveTo(19, 54);
             terminal.write(greeting(cal) + ", " + name);
-
-            // Write calendar.
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(15, xPosition - 30);
-            CalendarPrinter.printMonthCalendar(terminal, cal);
-
-
-            // Write Quote of the day.
-            quote = Quote.getQuote(cal);
-            terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
-            terminal.moveTo(20, xPosition);
-            terminal.write("Quote of the day : " + quote);
 
 
             // this while loop updates every second.
             for(int i  = 1; i <= 3600*3; i++) {
+
                 // Get the current date and time.
                 Calendar cal2 = Calendar.getInstance();
+                int hour = cal2.get(Calendar.HOUR_OF_DAY);
+                int minute = cal2.get(Calendar.HOUR_OF_DAY);
 
-                // Write the time, including seconds, in white.
-                String time = DateTime.formatTime(cal2, true);
-                if (cal2.get(Calendar.HOUR_OF_DAY) >= 12)
-                    time += " PM";
-                else
-                    time += " AM";
-                terminal.setTextColor(AnsiTerminal.Color.WHITE);
-                terminal.moveTo(3, xPosition);
-                terminal.write(time);
+                if(hour == alarmHour && minute == alarmMinute) {
+                    for (int j = 1; j <= 10; j++) {
+                        terminal.setBackgroundColor(AnsiTerminal.Color.WHITE);
+                        terminal.setTextColor(AnsiTerminal.Color.BLACK);
+                        DateTime.pause(0.5);
+                        terminal.setBackgroundColor(AnsiTerminal.Color.BLACK);
+                        terminal.setTextColor(AnsiTerminal.Color.WHITE);
+                    }
+                }
+
+
+                String time = displayTimeSeconds(cal2, is24);
+
+                PrintNumbers.printClock(terminal, time);
+
 
                 // Pause for one second, and do it again.
                 DateTime.pause(1.0);

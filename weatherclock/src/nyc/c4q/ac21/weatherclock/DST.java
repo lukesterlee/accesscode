@@ -9,6 +9,16 @@ import java.util.HashMap;
  */
 public class DST {
 
+    public static void printDST(AnsiTerminal terminal, Calendar date) {
+
+        int x = 54;
+        int y = 15;
+
+        String isDST = DST.isDST(date);
+        terminal.moveTo(y, x);
+        terminal.write(isDST);
+    }
+
     /**
      * Populates hash maps with the start and end time for DST in each year.
      * @param startDates
