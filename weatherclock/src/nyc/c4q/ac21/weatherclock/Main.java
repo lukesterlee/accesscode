@@ -189,14 +189,14 @@ public class Main {
         boolean isCelcius = isCelcius(tempFormat);
 
         // Get the alarm time.
-        System.out.print("Set the alarm clock? (Y/N) : ");
-        boolean isAlarm = input.nextLine().equalsIgnoreCase("Y");
-        if (isAlarm) {
-            System.out.print("Set the hour in 24-hour format : ");
-            alarmHour = input.nextInt();
-            System.out.print("Set the minute : ");
-            alarmMinute = input.nextInt();
-        }
+//        System.out.print("Set the alarm clock? (Y/N) : ");
+//        boolean isAlarm = input.nextLine().equalsIgnoreCase("Y");
+//        if (isAlarm) {
+//            System.out.print("Set the hour in 24-hour format : ");
+//            alarmHour = input.nextInt();
+//            System.out.print("Set the minute : ");
+//            alarmMinute = input.nextInt();
+//        }
 
         // Find out the size of the terminal currently.
         final int numCols = TerminalSize.getNumColumns();
