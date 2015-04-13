@@ -45,17 +45,7 @@ public class Weather {
     }
 
 
-    public getSunrise() {
 
-    }
-
-    public getSunset() {
-
-    }
-
-    public updateWeatherInformation() {
-
-    }
 
     public static String getWeather(URL url) {
         String doc = HTTP.get(url);
