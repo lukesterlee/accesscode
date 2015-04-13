@@ -12,19 +12,21 @@ import java.util.Timer;
 
 /*
  * Access Code 2.1
- * Team blah blah : Jorge, Ray, Vanice, Luke
+ * Team Dream : Jorge, Ray, Vanice, Luke
  *
  * Our Product Quality
- * 1. Exception handling
- * 2. Offline handling
- * 3. Data Use Efficiency
+ * 1. Exception handling : in progress
+ * 2. Offline handling : in progress
+ * 3. Data Use Efficiency : Quote data fetch, in progress
+ *
  * Basic Requirement
  *
+ *
  * Additional Features
- * 1.
- * 2.
- * 3.
- * 4.
+ * 1. 5 Days Forecast
+ * 2. Zip code selection
+ * 3. Celcius Farenheit option
+ * 4. 12/24 hour format
  */
 
 public class Main {
@@ -35,12 +37,7 @@ public class Main {
     public static Calendar getSunset(String address) {
         URL url = HTTP.stringToURL(address);
         String doc = HTTP.get(url);
-        if (doc == null)
-            return null;
-
         JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        if (obj == null)
-            return null;
 
         JSONObject sys = (JSONObject) obj.get("sys");
         if (sys == null)

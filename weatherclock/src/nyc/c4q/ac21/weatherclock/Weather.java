@@ -13,10 +13,112 @@ import java.util.HashSet;
 
 /**
  * Created by Luke Lee on 4/7/15.
+ *
+ *  4/13/15 : In progress : creating Weather class, change to modular coding
  */
 public class Weather {
 
 
+    private URL url;
+    private String jsonFile;
+
+    private Calendar sunrise;
+    private Calendar sunset;
+
+    private float temperatureInKelvin;
+    private float pressureInhPa;
+    private int humidity;
+    private int weatherCode;
+    private String weatherDescription;
+
+    private boolean isCelcius;
+
+
+    public Weather() {
+
+    }
+
+    public Weather(URL url) {
+
+        this.url = url;
+
+    }
+
+
+    public getSunrise() {
+
+    }
+
+    public getSunset() {
+
+    }
+
+    public updateWeatherInformation() {
+
+    }
+
+    public static String getWeather(URL url) {
+        String doc = HTTP.get(url);
+        JSONObject obj = (JSONObject) JSONValue.parse(doc);
+        JSONArray weatherArray = (JSONArray) obj.get("weather");
+        JSONObject weather = (JSONObject) weatherArray.get(0);
+        String description = (String) weather.get("description");
+        return description;
+    }
+
+    public static Integer getWeatherCode(URL url) {
+        String doc = HTTP.get(url);
+        JSONObject obj = (JSONObject) JSONValue.parse(doc);
+        JSONArray weatherArray = (JSONArray) obj.get("weather");
+        JSONObject weather = (JSONObject) weatherArray.get(0);
+        long weatherId = (Long) weather.get("id");
+        Integer weatherCode = (int) (long) weatherId;
+        return weatherCode;
+    }
+
+
+    public static String getTemperature(URL url, boolean isCelcius) {
+
+        String doc = HTTP.get(url);
+        JSONObject obj = (JSONObject) JSONValue.parse(doc);
+        JSONObject main = (JSONObject) obj.get("main");
+        DecimalFormat df = new DecimalFormat("#.0");
+        Double temp = (Double) main.get("temp");
+        temp -= 273;
+
+        if (isCelcius)
+            return df.format(temp) + "°C";
+        else {
+            temp = temp*(9/5) + 32;
+            return df.format(temp) + "°F";
+        }
+
+
+    }
+
+    public static String getPressure(URL url) {
+
+        String doc = HTTP.get(url);
+        JSONObject obj = (JSONObject) JSONValue.parse(doc);
+        JSONObject main = (JSONObject) obj.get("main");
+        DecimalFormat df = new DecimalFormat("#.0");
+
+        Double pressure = (Double) main.get("pressure");
+        pressure = pressure*0.0296133971008484;
+        return df.format(pressure);
+    }
+
+    public static Integer getHumidity(URL url) {
+
+        String doc = HTTP.get(url);
+        JSONObject obj = (JSONObject) JSONValue.parse(doc);
+        JSONObject main = (JSONObject) obj.get("main");
+        DecimalFormat df = new DecimalFormat("#.0");
+
+        long humidity = (Long) main.get("humidity");
+        Integer hum = (int) (long) humidity;
+        return hum;
+    }
 
     public static void printTemperature(AnsiTerminal terminal, URL url, boolean isCelcius) {
 
@@ -30,7 +132,6 @@ public class Weather {
 
 
     }
-
 
     public static void printPressure(AnsiTerminal terminal, URL url) {
 
@@ -227,70 +328,4 @@ public class Weather {
         return null;
 
     }
-
-
-    public static String getWeather(URL url) {
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONArray weatherArray = (JSONArray) obj.get("weather");
-        JSONObject weather = (JSONObject) weatherArray.get(0);
-        String description = (String) weather.get("description");
-        return description;
-    }
-
-    public static Integer getWeatherCode(URL url) {
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONArray weatherArray = (JSONArray) obj.get("weather");
-        JSONObject weather = (JSONObject) weatherArray.get(0);
-        long weatherId = (Long) weather.get("id");
-        Integer weatherCode = (int) (long) weatherId;
-        return weatherCode;
-    }
-
-
-    public static String getTemperature(URL url, boolean isCelcius) {
-
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONObject main = (JSONObject) obj.get("main");
-        DecimalFormat df = new DecimalFormat("#.0");
-        Double temp = (Double) main.get("temp");
-        temp -= 273;
-
-        if (isCelcius)
-            return df.format(temp) + "°C";
-        else {
-            temp = temp*(9/5) + 32;
-            return df.format(temp) + "°F";
-        }
-
-
-    }
-
-    public static String getPressure(URL url) {
-
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONObject main = (JSONObject) obj.get("main");
-        DecimalFormat df = new DecimalFormat("#.0");
-
-        Double pressure = (Double) main.get("pressure");
-        pressure = pressure*0.0296133971008484;
-        return df.format(pressure);
-    }
-
-    public static Integer getHumidity(URL url) {
-
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONObject main = (JSONObject) obj.get("main");
-        DecimalFormat df = new DecimalFormat("#.0");
-
-        long humidity = (Long) main.get("humidity");
-        Integer hum = (int) (long) humidity;
-        return hum;
-    }
-
-
 }
