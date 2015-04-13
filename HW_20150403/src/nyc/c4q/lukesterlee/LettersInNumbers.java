@@ -8,7 +8,8 @@ import java.util.HashMap;
 public class LettersInNumbers {
 
 
-
+    // accepts an integer value as an input then count the number of letters in English and return it.
+    // it works from 0 ~ 9999.
     public static int letterCount(int number) {
 
         int result = 0;
@@ -57,33 +58,32 @@ public class LettersInNumbers {
                 numberInString = numberInString.substring(1);
             case 3 :
                 result += numbers.get(Integer.valueOf(Character.toString(numberInString.charAt(0)))).length();
-                result += numbers.get(100).length();
+                result += numbers.get(100).length() + 3; // add 3 because of "and".
                 numberInString = numberInString.substring(1);
             case 2 :
                 int digit = Integer.valueOf(Character.toString(numberInString.charAt(0)));
+                // when the number is 20~99.
                 if (digit >= 2) {
                     result += numbers.get(digit*10).length();
                     numberInString = numberInString.substring(1);
                 }
+                // when the number is 10~19.
                 else if (digit != 0) {
                     result += numbers.get(Integer.valueOf(numberInString)).length();
-                    break;
+                    break; // breaks so it doesn't go through case 1 because we don't have to read the last digit.
                 }
+                // when the number is 01~09
                 else {
                     numberInString = numberInString.substring(1);
                 }
             case 1 :
                 result += numbers.get(Integer.valueOf(numberInString)).length();
         }
-
         return result;
     }
 
     public static void main(String[] args) {
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= 1000; i++)
             System.out.println(i + " = " + letterCount(i));
-        }
-
-
     }
 }
