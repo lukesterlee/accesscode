@@ -18,96 +18,77 @@ import java.util.HashSet;
  */
 public class Weather {
 
-
     private URL url;
     private String jsonFile;
 
     private Calendar sunrise;
     private Calendar sunset;
 
-    private float temperatureInKelvin;
-    private float pressureInhPa;
+    private double temperature; // in Celcius
+    private double pressure; // inHpa
     private int humidity;
     private int weatherCode;
     private String weatherDescription;
 
     private boolean isCelcius;
 
+    private DecimalFormat df;
 
     public Weather() {
 
     }
 
-    public Weather(URL url) {
+    public Weather(String urlAddress, boolean isCelcius) {
 
-        this.url = url;
+        this.isCelcius = isCelcius;
+        df = new DecimalFormat("#.0");
 
-    }
+        url = HTTP.stringToURL(urlAddress);
+        jsonFile = HTTP.get(url);
+        JSONObject obj = (JSONObject) JSONValue.parse(jsonFile);
 
-
-
-
-    public static String getWeather(URL url) {
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
         JSONArray weatherArray = (JSONArray) obj.get("weather");
         JSONObject weather = (JSONObject) weatherArray.get(0);
-        String description = (String) weather.get("description");
-        return description;
-    }
-
-    public static Integer getWeatherCode(URL url) {
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONArray weatherArray = (JSONArray) obj.get("weather");
-        JSONObject weather = (JSONObject) weatherArray.get(0);
+        weatherDescription = (String) weather.get("description");
         long weatherId = (Long) weather.get("id");
-        Integer weatherCode = (int) (long) weatherId;
+        weatherCode = (int) (long) weatherId;
+
+        JSONObject main = (JSONObject) obj.get("main");
+        DecimalFormat df = new DecimalFormat("#.0");
+        temperature = (Double) main.get("temp");
+        temperature -= 273;
+        pressure = (Double) main.get("pressure");
+        long hum = (Long) main.get("humidity");
+        humidity = (int) (long) hum;
+
+
+
+    }
+
+    public String getWeatherDescription() {
+        return weatherDescription;
+    }
+
+    public int getWeatherCode() {
         return weatherCode;
     }
 
-
-    public static String getTemperature(URL url, boolean isCelcius) {
-
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONObject main = (JSONObject) obj.get("main");
-        DecimalFormat df = new DecimalFormat("#.0");
-        Double temp = (Double) main.get("temp");
-        temp -= 273;
-
+    public  String getTemperature() {
         if (isCelcius)
-            return df.format(temp) + "°C";
+            return df.format(temperature) + "°C";
         else {
-            temp = temp*(9/5) + 32;
-            return df.format(temp) + "°F";
+            temperature = temperature*(9/5) + 32;
+            return df.format(temperature) + "°F";
         }
-
-
     }
 
-    public static String getPressure(URL url) {
-
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONObject main = (JSONObject) obj.get("main");
-        DecimalFormat df = new DecimalFormat("#.0");
-
-        Double pressure = (Double) main.get("pressure");
+    public String getPressure() {
         pressure = pressure*0.0296133971008484;
-        return df.format(pressure);
+        return df.format(pressure); // return pressure in Hg
     }
 
-    public static Integer getHumidity(URL url) {
-
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-        JSONObject main = (JSONObject) obj.get("main");
-        DecimalFormat df = new DecimalFormat("#.0");
-
-        long humidity = (Long) main.get("humidity");
-        Integer hum = (int) (long) humidity;
-        return hum;
+    public Integer getHumidity() {
+        return humidity;
     }
 
     public static void printTemperature(AnsiTerminal terminal, URL url, boolean isCelcius) {
