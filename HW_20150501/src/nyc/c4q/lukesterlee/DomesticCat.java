@@ -14,21 +14,21 @@ public class DomesticCat extends Animal implements Domestic {
     }
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
-    public int compareTo(Animal o) {
-        return super.compareTo(o);
+    public int compareTo(Domestic o) {
+        return this.getName().compareTo(o.getName());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Domestic obj) {
+        return this.getName().equals(obj.getName());
     }
 }
