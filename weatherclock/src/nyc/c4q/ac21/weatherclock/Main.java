@@ -31,38 +31,7 @@ import java.util.Timer;
 
 public class Main {
 
-    /**
-     * SAMPLE CODE: Returns sunset time for the current day.
-     */
-    public static Calendar getSunset(String address) {
-        URL url = HTTP.stringToURL(address);
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
 
-        JSONObject sys = (JSONObject) obj.get("sys");
-        if (sys == null)
-            return null;
-        Long sunsetTimestamp = (Long) sys.get("sunset");
-        if (sunsetTimestamp == null)
-            return null;
-        return DateTime.fromTimestamp(sunsetTimestamp);
-    }
-
-    public static Calendar getSunrise(String address) {
-
-
-        URL url = HTTP.stringToURL(address);
-        String doc = HTTP.get(url);
-        JSONObject obj = (JSONObject) JSONValue.parse(doc);
-
-        JSONObject sys = (JSONObject) obj.get("sys");
-        if (sys == null)
-            return null;
-        Long sunriseTimestamp = (Long) sys.get("sunrise");
-        if (sunriseTimestamp == null)
-            return null;
-        return DateTime.fromTimestamp(sunriseTimestamp);
-    }
 
     public static String greeting(Calendar date) {
         String greeting;

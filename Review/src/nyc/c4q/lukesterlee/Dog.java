@@ -5,7 +5,7 @@ import java.util.Calendar;
 /**
  * Created by Luke Lee on 4/1/2015.
  */
-public class Dog {
+public class Dog extends Animal{
 
     private String name;
     private static int numOfLegs;
@@ -48,5 +48,10 @@ public class Dog {
     public Dog giveBirth(String name) {
         Dog baby = new Dog(name);
         return baby;
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println("Bark!");
     }
 }

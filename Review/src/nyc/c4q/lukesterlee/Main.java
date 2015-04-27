@@ -1,6 +1,8 @@
 package nyc.c4q.lukesterlee;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 public class Main {
 
@@ -27,17 +29,40 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Cat c1 = new Cat("Mimi");
-        Cat c2 = new Cat("Bobo");
+//        Cat c1 = new Cat("Mimi");
+//        Cat c2 = new Cat("Bobo");
+//
+//        Course c1;
+//        c1.name
+//
+//        System.out.println(c1.height);
+//
+//        c1.setHeight(6);
+//        c1.height = 27;
+//        c2.height = 0; // What?????
 
-        Course c1;
-        c1.name
 
-        System.out.println(c1.height);
 
-        c1.setHeight(6);
-        c1.height = 27;
-        c2.height = 0; // What?????
+        Animal
+
+
+
+        Animal a1 = new Animal();
+        Cat c1 = new Cat();
+        a1.makeSound();
+        c1.makeSound();
+
+        Animal a2 = new Cat();
+        a2.makeSound();
+
+        MediaItem m1 = new Cd();
+        MediaItem m2 = new Dvd();
+        MediaItem m3 = new Dvd();
+
+
+
+
+
 
     }
 }

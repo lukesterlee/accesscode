@@ -21,6 +21,10 @@ public class Weather {
     private URL url;
     private String jsonFile;
 
+    private String address = "http://api.openweathermap.org/data/2.5/weather?zip=";
+
+    private String zipCode;
+
     private Calendar sunrise;
     private Calendar sunset;
 
@@ -38,14 +42,26 @@ public class Weather {
 
     }
 
-    public Weather(String urlAddress, boolean isCelcius) {
-
+    public Weather(String zipCode, boolean isCelcius) {
         this.isCelcius = isCelcius;
+        address += zipCode + ",us";
+        update();
+    }
+
+    public void update() {
+
         df = new DecimalFormat("#.0");
 
-        url = HTTP.stringToURL(urlAddress);
+        url = HTTP.stringToURL(address);
         jsonFile = HTTP.get(url);
         JSONObject obj = (JSONObject) JSONValue.parse(jsonFile);
+
+        JSONObject sys = (JSONObject) obj.get("sys");
+
+        Long sunriseTimestamp = (Long) sys.get("sunrise");
+        sunrise = DateTime.fromTimestamp(sunriseTimestamp);
+        Long sunsetTimestamp = (Long) sys.get("sunset");
+        sunset = DateTime.fromTimestamp(sunsetTimestamp);
 
         JSONArray weatherArray = (JSONArray) obj.get("weather");
         JSONObject weather = (JSONObject) weatherArray.get(0);
@@ -61,8 +77,6 @@ public class Weather {
         long hum = (Long) main.get("humidity");
         humidity = (int) (long) hum;
 
-
-
     }
 
     public String getWeatherDescription() {
@@ -71,6 +85,14 @@ public class Weather {
 
     public int getWeatherCode() {
         return weatherCode;
+    }
+
+    public Calendar getSunrise() {
+        return sunrise;
+    }
+
+    public Calendar getSunset() {
+        return sunset;
     }
 
     public  String getTemperature() {
@@ -143,7 +165,6 @@ public class Weather {
     public static ArrayList<String> weatherPicture(int weatherCode) {
 
         ArrayList<ArrayList<Integer>> codes = new ArrayList<ArrayList<Integer>>();
-
 
         codes.add(new ArrayList<Integer>());
         codes.get(0).add(800);
