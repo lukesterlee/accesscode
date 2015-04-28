@@ -3,7 +3,7 @@ package nyc.c4q.lukesterlee;
 /**
  * Created by Luke Lee on 4/26/15.
  */
-public class Animal implements Comparable {
+public class Animal implements Comparable<Animal> {
 
     String spicies;
 
@@ -29,9 +29,14 @@ public class Animal implements Comparable {
     }
 
     @Override
-    public boolean equals(Animal obj) {
-        return this.getSpicies().equals(obj.getSpicies());
+    public boolean equals(Object obj) {
+        if (obj instanceof Animal) {
+            Animal a = (Animal) obj;
+            return this.getSpicies().equals(a.getSpicies());
+        }
+        return false;
     }
+
 
 
 }
