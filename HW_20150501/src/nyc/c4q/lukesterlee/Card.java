@@ -5,10 +5,14 @@ package nyc.c4q.lukesterlee;
  */
 public class Card {
 
-    String name;
+    int number;
+    String shape;
 
+    public int getNumber() {
+        return number;
+    }
 
-    public String getName() {
-        return name;
+    public String getShape() {
+        return shape;
     }
 }

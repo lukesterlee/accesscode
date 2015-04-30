@@ -43,7 +43,19 @@ public class Main {
 
 
 
-        Animal
+        ArrayList<Animal> list = new ArrayList<Animal>();
+
+        Cat a1 = new Cat();
+        Dog a2 = new Dog();
+        Cat c1 = new Cat();
+
+        list.add(a1);
+        list.add(a2);
+        list.add(c1);
+
+
+        Cat c2 = (Cat) list.get(0);
+
 
 
 

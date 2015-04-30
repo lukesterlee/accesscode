@@ -1,6 +1,7 @@
 package nyc.c4q.lukesterlee;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Luke Lee on 4/27/2015.
@@ -19,6 +20,7 @@ public class PlayingCards extends Game<Card> {
     }
     @Override
     ArrayList<Card> getpieces() {
+        Collections.shuffle(cardDeck);
         return cardDeck;
     }
 }
